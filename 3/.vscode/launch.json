@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - FirstJava",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "FirstJava",
+            "args": "",
+            "projectName": "H03_NACHNAME_VORNAME"
+        }
+    ]
+}

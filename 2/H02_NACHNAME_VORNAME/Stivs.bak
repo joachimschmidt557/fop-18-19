@@ -1,0 +1,16 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname Stivs) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
+(define (image-similarity img1 img2 max-difference) (
+foldl (lambda (i1 i2 result)(if(> (+ (- (first img1) (first img2)) (- (second img1) (second img2)) (- (third img1) (third img2))) max-difference) (append result '(list 1) result))) '() img1 img2
+
+                                                     ))
+
+
+(define input (bitmap/file "rainbow_colors.png"))
+(define protanopia (protanopia-map input))
+(define solution (bitmap/file "solution_rainbow_colors.png"))
+(check-expect (image->color-list protanopia) (image->color-list solution))
+(save-image protanopia "out_rainbow_colors.png")
+
+(image-similarity input solution 5)
