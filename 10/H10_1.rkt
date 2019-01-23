@@ -20,10 +20,16 @@
 ;; Precondition: cycle-free graph
 (define (find-route origin dest graph) (
   cond
+  ;; What if we get some empty arguments?
   [(empty? origin) #f]
   [(empty? dest) #f]
   [(empty? graph) #f]
+  ;; What if origin or dest aren't even in the graph?
+  [(not (member origin (graph-nodes graph))) #f]
+  [(not (member dest (graph-nodes graph))) #f]
+  ;; If there is no possible path, return false
   [(not (leads-to-dest? origin dest graph)) #f]
+  ;; Recursively search the graph
   [else (recursive-search origin dest graph empty)]
 ))
 
@@ -39,8 +45,8 @@
   [else (ormap (lambda (x) (leads-to-dest? x dest graph)) (get-neighbors node graph))]
   ))
 
-;; Type:
-;; Returns:
+;; Type: node node graph (list of string) -> (list of string)
+;; Returns: A possible path encoded in a list of string
 (define (recursive-search node dest graph current-path) (
   cond
   [(not (leads-to-dest? node dest graph)) #f]
@@ -74,11 +80,10 @@
   (map (lambda (x) (get-node-in-graph x graph)) (node-neighbors node)))
 
 
-(recursive-search A G G1 empty)
+;;(recursive-search A G G1 empty)
 
 
 ;; Tests
-
 (check-expect (find-route B F G1) (list "B" "E" "F"))
 (check-expect (find-route G A G1) false)
 (check-expect (member (find-route A G G1) (list
