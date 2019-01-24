@@ -79,10 +79,6 @@
 (define (get-neighbors node graph)
   (map (lambda (x) (get-node-in-graph x graph)) (node-neighbors node)))
 
-
-;;(recursive-search A G G1 empty)
-
-
 ;; Tests
 (check-expect (find-route B F G1) (list "B" "E" "F"))
 (check-expect (find-route G A G1) false)

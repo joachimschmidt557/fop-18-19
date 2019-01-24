@@ -52,6 +52,7 @@
 ;; Returns: the optimal tutor group which contains "currently-selected-tutors"
 (define (find-optimal-tutor-group all-the-tutors currently-selected-tutors max-budget criterion) (
   cond
+  [(empty? all-the-tutors) empty]
   [else (extract-maximum-quality
     ;;(filter
      ;; Select the combinations which are affordable
@@ -82,6 +83,10 @@
   ]
 ))
 
+(check-expect (find-optimal-tutor-group '() '() 100 tutor-speed) '())
+(check-expect (find-optimal-tutor-group all-tutors (list T1) 1000 tutor-speed) (list T1))
+(check-expect (find-optimal-tutor-group all-tutors (list T4) 4000 tutor-correctness) (list T11 T4))
+
 ;; Type: (list of (list of tutor)) (tutor -> number) -> (list of tutor)
 ;; Returns: The combination of tutor with the highest sum of criterion
 (define (extract-maximum-quality tutors-options criterion) (
@@ -101,21 +106,37 @@
   ]
 ))
 
+(check-expect (extract-maximum-quality '() tutor-speed) '())
+(check-expect (extract-maximum-quality (list (list T1)) tutor-correctness) (list T1))
+(check-expect (extract-maximum-quality (list (list T1) (list T2 T3) (list T6 T9 T4)) tutor-speed) (list T6 T9 T4))
+
 ;; Type: (list of tutor) -> number
-;; Returns:
+;; Returns: The budget consumption of this collection of tutors
 (define (budget-consumption tutors)
   (criterion-sum tutors tutor-salary))
 
+(check-expect (budget-consumption '()) 0)
+(check-expect (budget-consumption (list T1)) 1000)
+(check-expect (budget-consumption (list T7 T9)) 3197)
+
 ;; Type: (list of tutor) number -> boolean
-;; Returns:
+;; Returns: Whether the budget consumption of this collection of tutors is still
+;; within the maximum budget
 (define (still-in-budget tutors max-budget)
   (<= (budget-consumption tutors) max-budget))
 
+(check-expect (still-in-budget '() 0) #t)
+(check-expect (still-in-budget (list T1) 400) #f)
+(check-expect (still-in-budget (list T2 T4) 10000) #t)
+
 ;; Type: (list of tutor) (tutor -> number) -> number
-;; Returns:
+;; Returns: The sum of properties of this collection of tutors
 (define (criterion-sum tutors criterion)
   (apply + (map criterion tutors)))
 
+(check-expect (criterion-sum '() tutor-speed) 0)
+(check-expect (criterion-sum (list T8 T3) tutor-correctness) 23)
+(check-expect (criterion-sum (list T8 T3) tutor-speed) 134)
 
 ;; Tests
 (check-expect (choose-tutors all-tutors 2000 tutor-correctness) (list "Konrad"))
