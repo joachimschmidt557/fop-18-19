@@ -31,12 +31,19 @@
   [else (length (recursive-row-insert n 1 '() '()))]
 ))
 
+;; Type: number -> (list of number)
+;; Returns: a list counting from one to the number
+;; example: 5 -> '(1 2 3 4 5)
 (define (one-to-n n) (if (<= n 1) '(1) (append (one-to-n (- n 1)) (list n))))
 
+;; Type: number number -> (list of queen)
+;; Returns: All possible queens on this row
 (define (make-new-queens-at-row n row) (
   map (lambda (x) (make-queen row x)) (one-to-n n)
 ))
 
+;; Type: number number (list of queen)
+;; Returns: All valid queens on this row
 (define (valid-queens-at-row n row queens) (
   filter (lambda (x) (not (under-attack x queens))) (make-new-queens-at-row n row)
 ))
