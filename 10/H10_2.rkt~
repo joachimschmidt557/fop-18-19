@@ -34,6 +34,14 @@
    cond
    ;; If no tutors are there
    [(empty? possible-tutors) empty]
+   #|
+   ;; If there is only one tutor
+   [(empty? (rest possible-tutors))
+    (if (still-in-budget possible-tutors)
+      possible-tutors
+      empty
+   )]
+   |#
    ;; If all tutors can be afforded
    [(still-in-budget possible-tutors max-budget) (map tutor-name possible-tutors)]
    ;; We have to not employ some tutors
@@ -86,9 +94,7 @@
   [(empty? tutors-options) empty]
   [else (foldl
     ;; If option x is better, replace by x, else replace by y
-    (;; Type: (list of tutor) (list of tutor) -> (list of tutor)
-     ;; Returns: Whichever constellation of tutors is better
-     lambda (x y) (
+    (lambda (x y) (
        if (> (criterion-sum x criterion) (criterion-sum y criterion))
        x
        y

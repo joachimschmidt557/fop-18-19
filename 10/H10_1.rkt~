@@ -42,12 +42,8 @@
   [(empty? node) #f]
   [(empty? dest) #f]
   [(empty? (get-neighbors node graph)) #f]
-  [(< 0 (length (filter (;; Type: node -> boolean
-                         ;; Returns: Whether the node is the destination
-                         lambda (x) (equal? x dest)) (get-neighbors node graph)))) #t]
-  [else (ormap (;; Type: node -> boolean
-                ;; Returns: Whether the node leads to the destination
-                lambda (x) (leads-to-dest? x dest graph)) (get-neighbors node graph))]
+  [(< 0 (length (filter (lambda (x) (equal? x dest)) (get-neighbors node graph)))) #t]
+  [else (ormap (lambda (x) (leads-to-dest? x dest graph)) (get-neighbors node graph))]
   ))
 
 (check-expect (leads-to-dest? A A G1) #t)
@@ -71,9 +67,7 @@
   |#
   [else
    ;; Continue searching from the first element that leads to the destination
-   (recursive-search (first (filter (;; Type: node -> boolean
-                                     ;; Returns: Whether this node leads to the destination
-                                     lambda (x) (leads-to-dest? x dest graph)) (get-neighbors node graph)))
+   (recursive-search (first (filter (lambda (x) (leads-to-dest? x dest graph)) (get-neighbors node graph)))
                      dest
                      graph
                      (append current-path (list (node-name node))))
@@ -91,14 +85,10 @@
   (cond
   [(null? name) #f]
   [(null? graph) #f]
-  [(empty? (filter (;; Type: node -> boolean
-                    ;; Returns: Whether the name of the node matches the parameter "name"
-                    lambda (x) (string=? (node-name x) name)) (graph-nodes graph))) #f]
+  [(empty? (filter (lambda (x) (string=? (node-name x) name)) (graph-nodes graph))) #f]
   [else
   (first
-    (filter (;; Type: node -> boolean
-             ;; Returns: Whether the name of the node matches the parameter "name"
-             lambda (x) (string=? (node-name x) name)) (graph-nodes graph)))]))
+    (filter (lambda (x) (string=? (node-name x) name)) (graph-nodes graph)))]))
 
 (check-expect (get-node-in-graph '() '()) #f)
 (check-expect (get-node-in-graph "E" G1) E)
@@ -110,9 +100,7 @@
   [(empty? node) empty]
   [(empty? graph) empty]
   [else
-  (map (;; Type: string -> node
-        ;; Returns: The node with that name
-        lambda (x) (get-node-in-graph x graph)) (node-neighbors node))]))
+  (map (lambda (x) (get-node-in-graph x graph)) (node-neighbors node))]))
 
 (check-expect (get-neighbors '() '()) '())
 (check-expect (get-neighbors A G1) (list B C))
@@ -128,7 +116,4 @@
                                            ))
               
               true)
-
 (check-expect (find-route B B G1) (list "B"))
-(check-expect (find-route D F G1) (list "D" "F"))
-(check-expect (find-route F D G1) #f)
