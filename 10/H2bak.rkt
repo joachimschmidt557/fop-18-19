@@ -57,41 +57,20 @@
       currently-selected-tutors
       ;; The optimal solutions containing a variation of the
       ;; current selection
-      (map (;; Type: (list of tutor) -> (list of tutor)
-            ;; Returns: The optimal solutions containing a variation of the
-            ;; current selection
-            lambda (x) (find-optimal-tutor-group
-                        ;;(filter
-                 ;;(lambda (x) (not (member x currently-selected-tutors)))
-                 all-the-tutors
-                 ;;)
-                        x
-                        max-budget
-                        criterion))
+      (map (lambda (x) (find-optimal-tutor-group all-the-tutors x max-budget criterion))
        ;; All the combinations of the current tutors +
        ;; one added remaining tutor
        ;; currently-selected-tutors -> (list of (list of tutor))
-       (filter (;; Type: (list of tutor) -> boolean
-                ;; Returns: whether the constellation of tutors is within the budget
-                lambda (x) (still-in-budget x max-budget))
+       (filter (lambda (x) (still-in-budget x max-budget))
                (map
-                (;; Type: tutor -> (list of tutor)
-                 ;; Adds tutor x to the selection of tutors
-                 lambda (x) (cons x currently-selected-tutors))
+                (lambda (x) (cons x currently-selected-tutors))
                 ;; All tutors remaining
-                #|
                 (filter
                  (lambda (x) (not (member x currently-selected-tutors)))
-                 all-the-tutors
+                 all-tutors
                  ) ; end filter
-                 |#
-
-                (if (empty? currently-selected-tutors) all-the-tutors
-                (rest (memv (first currently-selected-tutors) all-the-tutors)))
                 ) ; end map
-                
        )
-    ;;) criterion)
     )) criterion)
   ]
 ))
