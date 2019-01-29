@@ -1,0 +1,17 @@
+Grundlagen der Informatik	191	BaM	SS 18	Andreas	Wagner	Neugasse 8	64673	Zwingenberg	18612513	B. Sc. Mathematik
+				Melina	Nickel	Margarethenstraße 65	64625	Bensheim-Auerbach	12787556	B. Sc. Informatik
+				Robert	Gerhard	Lange Hart 36	64673	Zwingenberg	16431098	B. Sc. Wirtschaftsmathematik
+				Sven	Aster	Obergasse 51	64673	Zwingenberg	13599484	B. Sc. Wirtschaftsinformatik
+				Andreas	Hübner	Georg-Fröba-Straße 87	64347	Griesheim	10423256	B. Sc. Informatik
+				Frank	Nickel	Bickenbacher Weg 43	64673	Zwingenberg	11900771	B. Sc. Informatik
+Formale Grundlagen der Informatik	150	BaM	WS 18/19	Andreas	Wagner	Neugasse 8	64673	Zwingenberg	18612513	B. Sc. Mathematik
+				Melina	Nickel	Margarethenstraße 65	64625	Bensheim-Auerbach	12787556	B. Sc. Informatik
+				Robert	Gerhard	Lange Hart 36	64673	Zwingenberg	16431098	B. Sc. Wirtschaftsmathematik
+Einführung in die Kryptographie	168	Wa	SS 18	Bettina	Ulrich	Bachgasse 201	64625	Bensheim-Auerbach	12936250	M. Sc. Informatik
+				Andreas	Wagner	Neugasse 8	64673	Zwingenberg	18612513	B. Sc. Mathematik
+				Melina	Nickel	Margarethenstraße 65	64625	Bensheim-Auerbach	12787556	B. Sc. Informatik
+				Robert	Gerhard	Lange Hart 36	64673	Zwingenberg	16431098	B. Sc. Wirtschaftsmathematik
+Einführung in die Kryptographie	124	Wa	SS 19							
+Computersystemsicherheit	109	Wa	WS 18/19	Bettina	Ulrich	Bachgasse 201	64625	Bensheim-Auerbach	12936250	M. Sc. Informatik
+				Sven	Aster	Obergasse 51	64673	Zwingenberg	13599484	B. Sc. Wirtschaftsinformatik
+				Andreas	Hübner	Georg-Fröba-Straße 87	64347	Griesheim	10423256	B. Sc. Informatik

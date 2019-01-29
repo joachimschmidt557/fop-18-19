@@ -1,0 +1,5 @@
+Grundlagen der Informatik	191	SS 18	Jessica	Bachmann	Märkerwaldstraße 372	64625	Bensheim-Gronau	BaM	Algorithmik	18612513,12787556,16431098,13599484,10423256,11900771
+Formale Grundlagen der Informatik	150	WS 18/19	Jessica	Bachmann	Märkerwaldstraße 372	64625	Bensheim-Gronau	BaM	Algorithmik	18612513,12787556,16431098
+Einführung in die Kryptographie	168	SS 18	Tamara	Wagner	Hochstädter Straße 24	64342	Seeheim-Jugenheim	Wa	Systemsicherheit	12936250,18612513,12787556,16431098
+Einführung in die Kryptographie	124	SS 19	Tamara	Wagner	Hochstädter Straße 24	64342	Seeheim-Jugenheim	Wa	Systemsicherheit	
+Computersystemsicherheit	109	WS 18/19	Tamara	Wagner	Hochstädter Straße 24	64342	Seeheim-Jugenheim	Wa	Systemsicherheit	12936250,13599484,10423256

@@ -1,0 +1,3 @@
+﻿Jessica	Bachmann	Märkerwaldstraße 372	64625	Bensheim-Gronau	BaM	Theoretische Informatik
+Tamara	Wagner	Hochstädter Straße 24	64342	Seeheim-Jugenheim	Wa	Systemsicherheit
+Sven	Niedermayer	Darmstädter Straße 91	64673	Zwingenberg	NiM	Algorithmik
