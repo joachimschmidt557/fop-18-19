@@ -1,0 +1,8 @@
+Andreas	Wagner	Neugasse 8	64673	Zwingenberg	18612513	B. Sc. Mathematik
+Melina	Nickel	Margarethenstraße 65	64625	Bensheim-Auerbach	12787556	B. Sc. Informatik
+Robert	Gerhard	Lange Hart 36	64673	Zwingenberg	16431098	B. Sc. Wirtschaftsmathematik
+Sven	Aster	Obergasse 51	64673	Zwingenberg	13599484	B. Sc. Wirtschaftsinformatik
+Andreas	Hübner	Georg-Fröba-Straße 87	64347	Griesheim	10423256	B. Sc. Informatik
+Frank	Nickel	Bickenbacher Weg 43	64673	Zwingenberg	11900771	B. Sc. Informatik
+Daniel	Schuster	Wiesenpromenade 71	64673	Zwingenberg	14698775	B. Sc. Wirtschaftsinformatik
+Bettina	Ulrich	Bachgasse 201	64625	Bensheim-Auerbach	12936250	M. Sc. Informatik

@@ -1,0 +1,5 @@
+Grundlagen der Informatik	191	BaM	SS 18	18612513,12787556,16431098,13599484,10423256,11900771
+Formale Grundlagen der Informatik	150	BaM	WS 18/19	18612513,12787556,16431098
+Einführung in die Kryptographie	168	Wa	SS 18	12936250,18612513,12787556,16431098
+Einführung in die Kryptographie	124	Wa	SS 19
+Computersystemsicherheit	109	Wa	WS 18/19	12936250,13599484,10423256
