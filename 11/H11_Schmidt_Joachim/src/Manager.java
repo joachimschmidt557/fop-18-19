@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
@@ -19,14 +20,22 @@ public class Manager {
 	public ArrayList<Student> students = new ArrayList<Student>();
 	public ArrayList<Student> filteredStudents = null;
 	public String filterStudents = "";
+	
+	public Predicate<Student> filterStudentPred = x -> true;
+	
 	public String profFile = "Professoren.txt";
 	public ArrayList<Professor> profs = new ArrayList<Professor>();
 	public ArrayList<Professor> filteredProfs = null;
 	public String filterProfs = "";
+	
+	public Predicate<Professor> filterProfPred = x -> true;
+	
 	public String moduleFile = "Module.txt";
 	public ArrayList<Module> modules = new ArrayList<Module>();
 	public ArrayList<Module> filteredModules = null;
 	public String filterModules = "";
+	
+	public Predicate<Module> filterModulePred = x -> true;
 
 	static Manager inst = null;
 
@@ -160,63 +169,209 @@ public class Manager {
 
 	/**
 	 * H2: Search for students with this name
+	 * 
 	 * @param name The name to search for
 	 * @return A list of students containing this name
 	 */
 	public ArrayList<Student> searchStudentName(String name) {
-		ArrayList<Student> result = students.stream()
-				.filter(x -> {
-					if (!mainFrame.searchCaseSensitive.isSelected())
-						return x.name.toLowerCase().contains(name.toLowerCase()) || 
-							   x.famName.toLowerCase().contains(name.toLowerCase());
-					else
-						return x.name.contains(name) || x.famName.contains(name);
-					})
-				.collect(Collectors.toCollection(ArrayList::new));
+		
+		Predicate<Student> pred = x -> {
+			if (!mainFrame.searchCaseSensitive.isSelected())
+				return x.name.toLowerCase().contains(name.toLowerCase())
+						|| x.famName.toLowerCase().contains(name.toLowerCase());
+			else
+				return x.name.contains(name) || x.famName.contains(name);
+		};
+		
+		ArrayList<Student> result = students.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
+		
+		filterStudentPred = pred;
+		
 		if (result.isEmpty())
-			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Studenten mit Teil - Namen: "+name);
+			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Studenten mit Teil - Namen: " + name);
+		
+		return result;
+		
+	}
+	
+	/**
+	 * H5: Searches the students in the given field
+	 * @param search The search string
+	 * @param field The field in which to search
+	 * @param caseSensitive Whether the search should be case sensitive
+	 * @return A list of students matching the string in the given field
+	 */
+	public ArrayList<Student> searchStudentByField(String search, String field, boolean caseSensitive) {
+
+		Predicate<Student> pred = x -> {
+			String fieldString = "";
+			if (field.equals("Vorname"))
+				fieldString = x.name;
+			else if (field.equals("Nachname"))
+				fieldString = x.famName;
+			else if (field.equals("Straße, Nr."))
+				fieldString = x.street;
+			else if (field.equals("PLZ"))
+				fieldString = x.zip;
+			else if (field.equals("Ort"))
+				fieldString = x.city;
+			else if (field.equals("Matrikelnr."))
+				fieldString = x.studID;
+			else if (field.equals("Studiengang"))
+				fieldString = x.course;
+			
+			if (!caseSensitive)
+				return fieldString.toLowerCase().contains(search.toLowerCase());
+			else
+				return fieldString.contains(search);
+			
+		};
+		
+		ArrayList<Student> result = students.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
+		
+		filterStudentPred = pred;
+		
+		if (result.isEmpty())
+			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Studenten mit Teil - " + field + ": " + search);
+		
 		return result;
 	}
 
 	/**
 	 * H2: Search for professors with this name
+	 * 
 	 * @param name The name to search for
 	 * @return A list of professors containing this name
 	 */
 	public ArrayList<Professor> searchProfName(String name) {
-		ArrayList<Professor> result = profs.stream()
-				.filter(x -> {
-					if (!mainFrame.searchCaseSensitive.isSelected())
-						return x.name.toLowerCase().contains(name.toLowerCase()) || 
-							   x.famName.toLowerCase().contains(name.toLowerCase());
-					else
-						return x.name.contains(name) || x.famName.contains(name);
-					})
-				.collect(Collectors.toCollection(ArrayList::new));
+		
+		Predicate<Professor> pred = x -> {
+			if (!mainFrame.searchCaseSensitive.isSelected())
+				return x.name.toLowerCase().contains(name.toLowerCase())
+						|| x.famName.toLowerCase().contains(name.toLowerCase());
+			else
+				return x.name.contains(name) || x.famName.contains(name);
+		};
+		
+		ArrayList<Professor> result = profs.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
+		
+		filterProfPred = pred;
+		
 		if (result.isEmpty())
-			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Professor mit Teil - Namen: "+name);
+			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Professor mit Teil - Namen: " + name);
+		
 		return result;
+		
 	}
 
 	/**
+	 * H5: Searches the professors in the given field
+	 * @param search The search string
+	 * @param field The field in which to search
+	 * @param caseSensitive Whether the search should be case sensitive
+	 * @return A list of professors matching the string in the given field
+	 */
+	public ArrayList<Professor> searchProfByField(String search, String field, boolean caseSensitive) {
+
+		Predicate<Professor> pred = x -> {
+			String fieldString = "";
+			if (field.equals("Vorname"))
+				fieldString = x.name;
+			else if (field.equals("Nachname"))
+				fieldString = x.famName;
+			else if (field.equals("Straße, Nr."))
+				fieldString = x.street;
+			else if (field.equals("PLZ"))
+				fieldString = x.zip;
+			else if (field.equals("Ort"))
+				fieldString = x.city;
+			else if (field.equals("Kürzel"))
+				fieldString = x.staffID;
+			else if (field.equals("Fachgebiet"))
+				fieldString = x.field;
+			
+			if (!caseSensitive)
+				return fieldString.toLowerCase().contains(search.toLowerCase());
+			else
+				return fieldString.contains(search);
+			
+		};
+		
+		ArrayList<Professor> result = profs.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
+		
+		filterProfPred = pred;
+		
+		if (result.isEmpty())
+			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Professor mit Teil - " + field + ": " + search);
+		
+		return result;
+	}
+	
+	/**
 	 * H2: Search for modules with this name
+	 * 
 	 * @param name The name to search for
 	 * @return A list of modules containing this name
 	 */
 	public ArrayList<Module> searchModuleName(String name) {
-		ArrayList<Module> result = modules.stream()
-				.filter(x -> {
-					if (!mainFrame.searchCaseSensitive.isSelected())
-						return x.name.toLowerCase().contains(name.toLowerCase());
-					else
-						return x.name.contains(name);
-					})
-				.collect(Collectors.toCollection(ArrayList::new));
+		
+		Predicate<Module> pred = x -> {
+			if (!mainFrame.searchCaseSensitive.isSelected())
+				return x.name.toLowerCase().contains(name.toLowerCase());
+			else
+				return x.name.contains(name);
+		};
+		
+		ArrayList<Module> result = modules.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
+		
+		filterModulePred = pred;
+		
 		if (result.isEmpty())
-			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Module mit Teil - Namen: "+name);
+			JOptionPane.showMessageDialog(mainFrame, "Es gibt kein Modul mit Teil - Namen: " + name);
+		
+		return result;
+		
+	}
+	
+	/**
+	 * H5: Searches the modules in the given field
+	 * @param search The search string
+	 * @param field The field in which to search
+	 * @param caseSensitive Whether the search should be case sensitive
+	 * @return A list of modules matching the string in the given field
+	 */
+	public ArrayList<Module> searchModuleByField(String search, String field, boolean caseSensitive) {
+
+		Predicate<Module> pred = x -> {
+			String fieldString = "";
+			if (field.equals("Modulname"))
+				fieldString = x.name;
+			else if (field.equals("Modulnummer"))
+				fieldString = x.nr;
+			else if (field.equals("Professor"))
+				fieldString = x.profID;
+			else if (field.equals("Semester"))
+				fieldString = x.semester;
+			else if (field.equals("Teilnehmer"))
+				fieldString = x.getParticipants();
+			
+			if (!caseSensitive)
+				return fieldString.toLowerCase().contains(search.toLowerCase());
+			else
+				return fieldString.contains(search);
+			
+		};
+		
+		ArrayList<Module> result = modules.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
+		
+		filterModulePred = pred;
+		
+		if (result.isEmpty())
+			JOptionPane.showMessageDialog(mainFrame, "Es gibt kein Modul mit Teil - " + field + ": " + search);
+		
 		return result;
 	}
-
+	
 	public Student getStudent(String studID) {
 		for (Student s : students)
 			if (s.studID.equals(studID))
@@ -239,13 +394,15 @@ public class Manager {
 	}
 
 	/**
-	 * 
-	 * @param list
+	 * H3: Displays the given students onto the UI
+	 * @param list The students to show
 	 */
 	public void showStudents(ArrayList<Student> list) {
+		// First remove any existing entries
 		while (mainFrame.studentModel.getRowCount() > 0)
 			mainFrame.studentModel.removeRow(0);
-		
+
+		// Now add the new entries
 		for (Student stud : list) {
 			Vector<String> vec = new Vector<String>();
 			vec.add(stud.name);
@@ -257,18 +414,26 @@ public class Manager {
 			vec.add(stud.course);
 			mainFrame.studentModel.addRow(vec);
 		}
-				
+
+		// Update filteredStudents if necessary
+		if (list.size() != students.size())
+			filteredStudents = list;
+		else
+			filteredStudents = null;
+
+		// Resize the columns
 		mainFrame.resizeColumnWidth(mainFrame.studentTable);
 	}
 
 	/**
-	 * 
-	 * @param list
+	 * H3: Displays the given professors onto the UI
+	 * @param list The professors to show
 	 */
 	public void showProfs(ArrayList<Professor> list) {
+		// First remove any existing entries
 		while (mainFrame.profModel.getRowCount() > 0)
 			mainFrame.profModel.removeRow(0);
-		
+
 		for (Professor prof : list) {
 			Vector<String> vec = new Vector<String>();
 			vec.add(prof.name);
@@ -280,18 +445,26 @@ public class Manager {
 			vec.add(prof.field);
 			mainFrame.profModel.addRow(vec);
 		}
-		
+
+		// Update filteredProfs if necessary
+		if (list.size() != profs.size())
+			filteredProfs = list;
+		else
+			filteredProfs = null;
+
+		// Resize the columns
 		mainFrame.resizeColumnWidth(mainFrame.profTable);
 	}
 
 	/**
-	 * 
-	 * @param list
+	 * H3: Displays the given modules onto the UI
+	 * @param list The modules to show
 	 */
 	public void showModules(ArrayList<Module> list) {
+		// First remove any existing entries
 		while (mainFrame.moduleModel.getRowCount() > 0)
 			mainFrame.moduleModel.removeRow(0);
-		
+
 		for (Module mod : list) {
 			Vector<String> vec = new Vector<String>();
 			vec.add(mod.name);
@@ -301,7 +474,14 @@ public class Manager {
 			vec.add(mod.getParticipants());
 			mainFrame.moduleModel.addRow(vec);
 		}
-		
+
+		// Update filteredModules if necessary
+		if (list.size() != modules.size())
+			filteredModules = list;
+		else
+			filteredModules = null;
+
+		// Resize the columns
 		mainFrame.resizeColumnWidth(mainFrame.moduleTable);
 	}
 

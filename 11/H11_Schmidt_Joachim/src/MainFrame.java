@@ -1,6 +1,7 @@
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -21,6 +22,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -40,6 +42,10 @@ public class MainFrame extends JFrame {
 	private final int textFieldSize = 30;
 	public final int[] size = { 1280, 600 };
 
+	//
+	// SEARCH NAME PANE
+	//
+	
 	JTextField searchField = new JTextField(8);
 	JButton searchButton = new JButton("Suche");
 	JRadioButton searchStudentRadioButton = new JRadioButton("Student");
@@ -47,8 +53,34 @@ public class MainFrame extends JFrame {
 	JRadioButton searchModuleRadioButton = new JRadioButton("Modul");
 	ButtonGroup searchButtonGroup = new ButtonGroup();
 	JButton resetButton = new JButton("Alles anzeigen");
+	
+	// Added: a case-sensitive checkbox
 	JCheckBox searchCaseSensitive = new JCheckBox("Case-sensitive");
 
+	//
+	// SEARCH CUSTOM PANE
+	//
+	
+	JPanel customSearchPanel;
+	Border customSearchPanelBorder;
+	JTextField customSearchField;
+	JButton customSearchButton;
+	JRadioButton customSearchStudentRadioButton;
+	JRadioButton customSearchProfRadioButton;
+	JRadioButton customSearchModuleRadioButton;
+	ButtonGroup customSearchButtonGroup;
+	JButton customSearchResetButton;
+	JCheckBox customSearchCaseSensitive;
+	JComboBox<String> customSearchComboBox;
+	
+	JPanel searchInPanel;
+	JPanel searchWhatPanel;
+	JPanel searchThisPanel;
+	
+	//
+	// ADD PANE
+	//
+	
 	JButton addButton = new JButton("Hinzufügen");
 	JRadioButton addStudentRadioButton = new JRadioButton("Student");
 	JRadioButton addProfRadioButton = new JRadioButton("Professor");
@@ -99,6 +131,10 @@ public class MainFrame extends JFrame {
 	ArrayList<JLabel> moduleLabels = new ArrayList<JLabel>();
 	ArrayList<JTextField> moduleFields = new ArrayList<JTextField>();
 
+	//
+	// EDIT PANE
+	//
+	
 	JTextField deleteField = new JTextField(10);
 	JButton deleteButton = new JButton("Löschen");
 	JRadioButton deleteStudentRadioButton = new JRadioButton("Student");
@@ -225,30 +261,50 @@ public class MainFrame extends JFrame {
 		getContentPane().setPreferredSize(new Dimension(size[0], size[1]));
 		Border border = BorderFactory.createEtchedBorder();
 
+		//
+		// SEARCH
+		//
+		
 		Border searchBorder = BorderFactory.createTitledBorder(border, "Suche nach Namen");
 		JPanel searchPanel = new JPanel();
-		searchPanel.setPreferredSize(new Dimension(size[0] / 3, 60));
+		JPanel originalSearchPanel = new JPanel();
+		//searchPanel.setPreferredSize(new Dimension(size[0] / 3, 90));
 		searchPanel.setBorder(searchBorder);
-		searchPanel.setLayout(new FlowLayout());
+		searchPanel.setLayout(new BorderLayout());
 
 		searchButtonGroup.add(searchStudentRadioButton);
 		searchButtonGroup.add(searchProfRadioButton);
 		searchButtonGroup.add(searchModuleRadioButton);
 		// default selection: Student
 		searchStudentRadioButton.setSelected(true);
-		searchPanel.add(searchStudentRadioButton);
-		searchPanel.add(searchProfRadioButton);
-		searchPanel.add(searchModuleRadioButton);
+		originalSearchPanel.add(searchStudentRadioButton);
+		originalSearchPanel.add(searchProfRadioButton);
+		originalSearchPanel.add(searchModuleRadioButton);
 
-		searchPanel.add(searchField);
-		searchPanel.add(searchButton);
+		originalSearchPanel.add(searchField);
+		originalSearchPanel.add(searchButton);
 		
 		// Added: a case sensitive checkbox
-		searchPanel.add(searchCaseSensitive);
+		JPanel caseSensitivePanel = new JPanel();
+		caseSensitivePanel.add(searchCaseSensitive);
+		
 
 		resetButton.setVisible(false);
-		searchPanel.add(resetButton);
+		originalSearchPanel.add(resetButton);
+		
+		searchPanel.add(originalSearchPanel, BorderLayout.NORTH);
+		searchPanel.add(caseSensitivePanel, BorderLayout.SOUTH);
 
+		//
+		// CUSTOM SEARCH
+		//
+		
+		initializeCustomSearch();
+		
+		//
+		// ADD
+		//
+		
 		Border addBorder = BorderFactory.createTitledBorder(border, "Hinzufügen");
 		JPanel addPanel = new JPanel();
 		addPanel.setPreferredSize(new Dimension(size[0] / 3, 2 * size[1] / 3));
@@ -355,6 +411,10 @@ public class MainFrame extends JFrame {
 		addPanel.add(addButtonPanel, BorderLayout.NORTH);
 		addPanel.add(addScrollPane, BorderLayout.CENTER);
 
+		//
+		// EDIT
+		//
+		
 		Border deleteBorder = BorderFactory.createTitledBorder(border, "Bearbeiten mit Matrikelnr/Kürzel/Modulnr");
 		JPanel deletePanel = new JPanel();
 		deletePanel.setBorder(deleteBorder);
@@ -432,7 +492,16 @@ public class MainFrame extends JFrame {
 
 		JPanel actionPanel = new JPanel();
 		actionPanel.setLayout(new BorderLayout());
-		actionPanel.add(searchPanel, BorderLayout.NORTH);
+		//actionPanel.add(searchPanel, BorderLayout.NORTH);
+		
+		// Added: custom Search panel
+		//actionPanel.add(customSearchPanel, BorderLayout.NORTH);
+		JPanel masterSearchPanel = new JPanel();
+		masterSearchPanel.setLayout(new BorderLayout());
+		masterSearchPanel.add(searchPanel, BorderLayout.NORTH);
+		masterSearchPanel.add(customSearchPanel, BorderLayout.SOUTH);
+		actionPanel.add(masterSearchPanel, BorderLayout.NORTH);
+		
 		actionPanel.add(addPanel, BorderLayout.CENTER);
 		actionPanel.add(deletePanel, BorderLayout.SOUTH);
 
@@ -798,5 +867,75 @@ public class MainFrame extends JFrame {
 	public static void main(String[] args) {
 		MainFrame winFrame = new MainFrame("Campus Management");
 		Manager manager = Manager.createManagerInst(winFrame);
+	}
+	
+	/**
+	 * H5: Sets up the customSearchPanel
+	 */
+	private void initializeCustomSearch() {
+		
+		Border border = BorderFactory.createEtchedBorder();
+		
+		customSearchPanel = new JPanel();
+		customSearchPanelBorder = BorderFactory.createTitledBorder(border, "Suche nach ...");
+		customSearchField = new JTextField(8);
+		customSearchButton = new JButton("Suchen");
+		customSearchStudentRadioButton = new JRadioButton("Studierende");
+		customSearchProfRadioButton = new JRadioButton("Professoren");
+		customSearchModuleRadioButton = new JRadioButton("Module");
+		customSearchButtonGroup = new ButtonGroup();
+		customSearchResetButton = new JButton("Zurücksetzen");
+		customSearchCaseSensitive = new JCheckBox("Case-sensitive");
+		searchInPanel = new JPanel();
+		searchWhatPanel = new JPanel();
+		searchThisPanel = new JPanel();
+		customSearchComboBox = new JComboBox<String>(studentColumns);
+		
+		// Make the reset button reset everything
+		customSearchResetButton.addActionListener(new ResetHandler(this));
+		
+		// Make the search button search
+		customSearchButton.addActionListener(new CustomSearchHandler(this));
+		
+		// Make the combobox change on every radio button change
+		customSearchStudentRadioButton.addActionListener(x -> {
+			customSearchComboBox.removeAllItems();
+			for (String field : studentColumns)
+				customSearchComboBox.addItem(field);
+		});
+		customSearchProfRadioButton.addActionListener(x -> {
+			customSearchComboBox.removeAllItems();
+			for (String field : profColumns)
+				customSearchComboBox.addItem(field);
+		});
+		customSearchModuleRadioButton.addActionListener(x -> {
+			customSearchComboBox.removeAllItems();
+			for (String field : moduleColumns)
+				customSearchComboBox.addItem(field);
+		});
+		
+		customSearchPanel.setBorder(customSearchPanelBorder);
+		customSearchPanel.setLayout(new BorderLayout());
+		
+		customSearchButtonGroup.add(customSearchStudentRadioButton);
+		customSearchButtonGroup.add(customSearchProfRadioButton);
+		customSearchButtonGroup.add(customSearchModuleRadioButton);
+		
+		customSearchStudentRadioButton.setSelected(true);
+		searchInPanel.add(customSearchStudentRadioButton);
+		searchInPanel.add(customSearchProfRadioButton);
+		searchInPanel.add(customSearchModuleRadioButton);
+		
+		searchWhatPanel.add(customSearchComboBox);
+		
+		searchThisPanel.add(customSearchField);
+		searchThisPanel.add(customSearchButton);
+		searchThisPanel.add(customSearchResetButton);
+		searchThisPanel.add(customSearchCaseSensitive);
+		
+		customSearchPanel.add(searchInPanel, BorderLayout.NORTH);
+		customSearchPanel.add(searchWhatPanel, BorderLayout.CENTER);
+		customSearchPanel.add(searchThisPanel, BorderLayout.SOUTH);
+				
 	}
 }
