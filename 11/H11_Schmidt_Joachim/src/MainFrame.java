@@ -936,6 +936,6 @@ public class MainFrame extends JFrame {
 		customSearchPanel.add(searchInPanel, BorderLayout.NORTH);
 		customSearchPanel.add(searchWhatPanel, BorderLayout.CENTER);
 		customSearchPanel.add(searchThisPanel, BorderLayout.SOUTH);
-				
+		
 	}
 }

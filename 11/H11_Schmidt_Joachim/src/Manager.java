@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Vector;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
@@ -20,22 +19,14 @@ public class Manager {
 	public ArrayList<Student> students = new ArrayList<Student>();
 	public ArrayList<Student> filteredStudents = null;
 	public String filterStudents = "";
-	
-	public Predicate<Student> filterStudentPred = x -> true;
-	
 	public String profFile = "Professoren.txt";
 	public ArrayList<Professor> profs = new ArrayList<Professor>();
 	public ArrayList<Professor> filteredProfs = null;
 	public String filterProfs = "";
-	
-	public Predicate<Professor> filterProfPred = x -> true;
-	
 	public String moduleFile = "Module.txt";
 	public ArrayList<Module> modules = new ArrayList<Module>();
 	public ArrayList<Module> filteredModules = null;
 	public String filterModules = "";
-	
-	public Predicate<Module> filterModulePred = x -> true;
 
 	static Manager inst = null;
 
@@ -174,24 +165,16 @@ public class Manager {
 	 * @return A list of students containing this name
 	 */
 	public ArrayList<Student> searchStudentName(String name) {
-		
-		Predicate<Student> pred = x -> {
+		ArrayList<Student> result = students.stream().filter(x -> {
 			if (!mainFrame.searchCaseSensitive.isSelected())
 				return x.name.toLowerCase().contains(name.toLowerCase())
 						|| x.famName.toLowerCase().contains(name.toLowerCase());
 			else
 				return x.name.contains(name) || x.famName.contains(name);
-		};
-		
-		ArrayList<Student> result = students.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
-		
-		filterStudentPred = pred;
-		
+		}).collect(Collectors.toCollection(ArrayList::new));
 		if (result.isEmpty())
 			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Studenten mit Teil - Namen: " + name);
-		
 		return result;
-		
 	}
 	
 	/**
@@ -203,7 +186,7 @@ public class Manager {
 	 */
 	public ArrayList<Student> searchStudentByField(String search, String field, boolean caseSensitive) {
 
-		Predicate<Student> pred = x -> {
+		ArrayList<Student> result = students.stream().filter(x -> {
 			String fieldString = "";
 			if (field.equals("Vorname"))
 				fieldString = x.name;
@@ -225,15 +208,10 @@ public class Manager {
 			else
 				return fieldString.contains(search);
 			
-		};
-		
-		ArrayList<Student> result = students.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
-		
-		filterStudentPred = pred;
+		}).collect(Collectors.toCollection(ArrayList::new));
 		
 		if (result.isEmpty())
 			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Studenten mit Teil - " + field + ": " + search);
-		
 		return result;
 	}
 
@@ -244,24 +222,16 @@ public class Manager {
 	 * @return A list of professors containing this name
 	 */
 	public ArrayList<Professor> searchProfName(String name) {
-		
-		Predicate<Professor> pred = x -> {
+		ArrayList<Professor> result = profs.stream().filter(x -> {
 			if (!mainFrame.searchCaseSensitive.isSelected())
 				return x.name.toLowerCase().contains(name.toLowerCase())
 						|| x.famName.toLowerCase().contains(name.toLowerCase());
 			else
 				return x.name.contains(name) || x.famName.contains(name);
-		};
-		
-		ArrayList<Professor> result = profs.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
-		
-		filterProfPred = pred;
-		
+		}).collect(Collectors.toCollection(ArrayList::new));
 		if (result.isEmpty())
 			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Professor mit Teil - Namen: " + name);
-		
 		return result;
-		
 	}
 
 	/**
@@ -273,7 +243,7 @@ public class Manager {
 	 */
 	public ArrayList<Professor> searchProfByField(String search, String field, boolean caseSensitive) {
 
-		Predicate<Professor> pred = x -> {
+		ArrayList<Professor> result = profs.stream().filter(x -> {
 			String fieldString = "";
 			if (field.equals("Vorname"))
 				fieldString = x.name;
@@ -295,15 +265,10 @@ public class Manager {
 			else
 				return fieldString.contains(search);
 			
-		};
-		
-		ArrayList<Professor> result = profs.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
-		
-		filterProfPred = pred;
+		}).collect(Collectors.toCollection(ArrayList::new));
 		
 		if (result.isEmpty())
 			JOptionPane.showMessageDialog(mainFrame, "Es gibt keinen Professor mit Teil - " + field + ": " + search);
-		
 		return result;
 	}
 	
@@ -314,23 +279,15 @@ public class Manager {
 	 * @return A list of modules containing this name
 	 */
 	public ArrayList<Module> searchModuleName(String name) {
-		
-		Predicate<Module> pred = x -> {
+		ArrayList<Module> result = modules.stream().filter(x -> {
 			if (!mainFrame.searchCaseSensitive.isSelected())
 				return x.name.toLowerCase().contains(name.toLowerCase());
 			else
 				return x.name.contains(name);
-		};
-		
-		ArrayList<Module> result = modules.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
-		
-		filterModulePred = pred;
-		
+		}).collect(Collectors.toCollection(ArrayList::new));
 		if (result.isEmpty())
 			JOptionPane.showMessageDialog(mainFrame, "Es gibt kein Modul mit Teil - Namen: " + name);
-		
 		return result;
-		
 	}
 	
 	/**
@@ -342,7 +299,7 @@ public class Manager {
 	 */
 	public ArrayList<Module> searchModuleByField(String search, String field, boolean caseSensitive) {
 
-		Predicate<Module> pred = x -> {
+		ArrayList<Module> result = modules.stream().filter(x -> {
 			String fieldString = "";
 			if (field.equals("Modulname"))
 				fieldString = x.name;
@@ -360,15 +317,10 @@ public class Manager {
 			else
 				return fieldString.contains(search);
 			
-		};
-		
-		ArrayList<Module> result = modules.stream().filter(pred).collect(Collectors.toCollection(ArrayList::new));
-		
-		filterModulePred = pred;
+		}).collect(Collectors.toCollection(ArrayList::new));
 		
 		if (result.isEmpty())
 			JOptionPane.showMessageDialog(mainFrame, "Es gibt kein Modul mit Teil - " + field + ": " + search);
-		
 		return result;
 	}
 	

@@ -13,7 +13,6 @@ public class SearchHandler implements ActionListener {
 
 	/**
 	 * H4: Handles a click onto the name search button
-	 * 
 	 * @param e The event parameters
 	 */
 	public void actionPerformed(ActionEvent e) {
@@ -22,42 +21,21 @@ public class SearchHandler implements ActionListener {
 
 		String search = mF.searchField.getText();
 
-		// Reset everything
-		new ResetHandler(mF).actionPerformed(null);
-		mF.searchField.setText(search);
-
 		if (search.isEmpty()) {
 			if (e != null)
-				JOptionPane.showMessageDialog(mF, "Leerer Suchtext!");
+				JOptionPane.showMessageDialog(mF, "Empty search!");
 		} else {
-
+			
 			if (mF.searchStudentRadioButton.isSelected()) {
-
 				manager.showStudents(manager.searchStudentName(search));
-
-				manager.filterStudents = search;
-				/*
-				 * StringBuilder filter = new StringBuilder(); for (Student stud :
-				 * manager.searchStudentName(search)) { filter.append(stud.getString());
-				 * filter.append("\n"); } manager.filterStudents = filter.toString();
-				 */
-
 			} else if (mF.searchProfRadioButton.isSelected()) {
-
 				manager.showProfs(manager.searchProfName(search));
-
-				manager.filterProfs = search;
-
 			} else if (mF.searchModuleRadioButton.isSelected()) {
-
 				manager.showModules(manager.searchModuleName(search));
-
-				manager.filterModules = search;
-
 			}
-
+			
 			mF.resetButton.setVisible(true);
 		}
-
+		
 	}
 }

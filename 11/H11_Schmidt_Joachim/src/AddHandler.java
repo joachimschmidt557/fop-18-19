@@ -54,11 +54,8 @@ public class AddHandler implements ActionListener {
 							allFields[3].getText(), allFields[4].getText(), newID, allFields[6].getText() };
 					// only add a row to JTable if either there is no filter active, or the new
 					// Student satisfies the filter's restrictions
-					//if (manager.filteredStudents == null || allFields[0].getText().contains(manager.filterStudents)
-					//		|| allFields[1].getText().contains(manager.filterStudents)) {
-					
-					// Changed
-					if (manager.filteredStudents == null || manager.filterStudentPred.test(new Student(newData))) {
+					if (manager.filteredStudents == null || allFields[0].getText().contains(manager.filterStudents)
+							|| allFields[1].getText().contains(manager.filterStudents)) {
 						model.addRow(newData);
 					}
 					manager.students.add(new Student(newData));
@@ -72,11 +69,8 @@ public class AddHandler implements ActionListener {
 							allFields[3].getText(), allFields[4].getText(), newID, allFields[6].getText() };
 					// only add a row to JTable if either there is no filter active, or the new
 					// Professor satisfies the filter's restrictions
-					//if (manager.filteredProfs == null || allFields[0].getText().contains(manager.filterProfs)
-					//		|| allFields[1].getText().contains(manager.filterProfs)) {
-					
-					// Changed
-					if (manager.filteredProfs == null || manager.filterProfPred.test(new Professor(newData))) {
+					if (manager.filteredProfs == null || allFields[0].getText().contains(manager.filterProfs)
+							|| allFields[1].getText().contains(manager.filterProfs)) {
 						model.addRow(newData);
 					}
 					manager.profs.add(new Professor(newData));
@@ -98,10 +92,7 @@ public class AddHandler implements ActionListener {
 						newModule.addParticipants(mF.partField.getText());
 						// only add a row to JTable if either there is no filter active, or the new
 						// Module satisfies the filter's restrictions
-						//if (manager.filteredModules == null || allFields[0].getText().contains(manager.filterModules)) {
-						
-						// Changed
-						if (manager.filteredModules == null || manager.filterModulePred.test(newModule)) {
+						if (manager.filteredModules == null || allFields[0].getText().contains(manager.filterModules)) {
 							model.addRow(newModule.data);
 						}
 						manager.modules.add(newModule);
@@ -114,8 +105,8 @@ public class AddHandler implements ActionListener {
 		}
 		
 		// Simulate a search
-		//new SearchHandler(mF).actionPerformed(null);
-		//new CustomSearchHandler(mF).actionPerformed(null);
+		new SearchHandler(mF).actionPerformed(null);
+		new CustomSearchHandler(mF).actionPerformed(null);
 		
 	}
 }
