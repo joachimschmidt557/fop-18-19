@@ -25,7 +25,7 @@ public class SierpinskiCarpet extends JFrame {
 	@Override
 	public void paint(Graphics g) {
 		
-		recursivePaint(g, n, 0, len, 0, len);
+		recursivePaint(g, n, 50, len+50, 50, len+50);
 		
 	}
 	

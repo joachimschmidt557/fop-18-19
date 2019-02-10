@@ -49,10 +49,10 @@ public class MandelbrotSet extends Set {
 
 	}
 
-	public static Color colorMap(float i, float nMax) {
+	public Color colorMap(float i, float nMax) {
 
-		float h = ((float)(i / 100.0)) > 1.0 ? (float)1 : ((float)(i / 100.0));
-		//float h = ((float)(i / 100.0));
+		//float h = ((float)(i / 100.0)) > 1.0 ? (float)1 : ((float)(i / 100.0));
+		float h = ((float)(i / 100.0));
 		float s = (float)1;
 		float b = (i < nMax) ? (float)1 : (float)0;
 		

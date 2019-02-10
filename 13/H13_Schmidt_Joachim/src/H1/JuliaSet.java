@@ -23,7 +23,7 @@ public class JuliaSet extends Set {
 		return I;
 	}
 	
-	Color generatePixel(int x, int y, float maxIter, int rMax, int height, int width, int zoomFactor) {
+	Color generatePixel(int x, int y, int maxIter, int rMax, int height, int width, int zoomFactor) {
 		
 		ComplexNumber z = chooseStartValue();
 		ComplexNumber c = MandelbrotSet.getComplexNumberForPixel(x, y, height, width, zoomFactor);
@@ -31,7 +31,7 @@ public class JuliaSet extends Set {
 		for (int i = 0; i < maxIter; i++) {
 			
 			if (c.abs() >= rMax)
-				return MandelbrotSet.colorMap(i, maxIter);
+				return colorMap(i, maxIter);
 			
 			double newReal = c.getRe() * c.getRe() - c.getIm() * c.getIm();
 			c.setIm(2 * c.getRe() * c.getIm());
@@ -51,7 +51,7 @@ public class JuliaSet extends Set {
 		
 	}
 	
-	public static Color colorMap(float i, float nMax) {
+	public Color colorMap(int i, int nMax) {
 
 		float h = ((float)(i % 256/ 255.0)) > 1.0 ? (float)1 : ((float)(i % 256/ 255.0));
 		float s = (float)0.6;

@@ -39,10 +39,13 @@ public class Visualizer extends JFrame {
 
 			currentAngle = rotateAngle(currentAngle, instruction);
 			
-			g.drawLine((int)currentX, (int)currentY, (int)calculateNewX(currentX, currentAngle, len), (int)calculateNewY(currentY, currentAngle, len));
+			g.drawLine((int)Math.round(currentX),
+					(int)Math.round(currentY),
+					(int)Math.round(calculateNewX(currentX, currentAngle, len)),
+					(int)Math.round(calculateNewY(currentY, currentAngle, len)));
 
-			currentX = calculateNewX(currentX, currentAngle, len);
-			currentY = calculateNewY(currentY, currentAngle, len);
+			currentX = Math.round(calculateNewX(currentX, currentAngle, len));
+			currentY = Math.round(calculateNewY(currentY, currentAngle, len));
 			
 		}
 
