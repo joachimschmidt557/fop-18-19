@@ -25,13 +25,13 @@ public class MandelbrotSet extends Set {
 
 	}
 
-	ComplexNumber getComplexNumberForPixel(double x, double y, double height, double width, double zoomFactor) {
+	public static ComplexNumber getComplexNumberForPixel(int x, int y, int height, int width, int zoomFactor) {
 
-		return new ComplexNumber((y - height / 2) / zoomFactor, (x - width / 2) / zoomFactor);
+		return new ComplexNumber((y - height / 2.0) / zoomFactor, (x - width / 2.0) / zoomFactor);
 
 	}
 
-	Color generatePixel(int x, int y, int maxIter, int rMax, int height, int width, int zoomFactor) {
+	Color generatePixel(int x, int y, float maxIter, int rMax, int height, int width, int zoomFactor) {
 
 		ComplexNumber z = new ComplexNumber(0, 0);
 		ComplexNumber c = getComplexNumberForPixel(x, y, height, width, zoomFactor);
@@ -49,9 +49,10 @@ public class MandelbrotSet extends Set {
 
 	}
 
-	Color colorMap(float i, float nMax) {
+	public static Color colorMap(float i, float nMax) {
 
-		float h = i / (float)100;
+		float h = ((float)(i / 100.0)) > 1.0 ? (float)1 : ((float)(i / 100.0));
+		//float h = ((float)(i / 100.0));
 		float s = (float)1;
 		float b = (i < nMax) ? (float)1 : (float)0;
 		

@@ -46,8 +46,9 @@ public class ComplexNumber {
 	 */
 	public ComplexNumber mult(ComplexNumber cn) {
 		
-		return new ComplexNumber(this.real * cn.getRe() - this.imaginary * cn.getIm(),
-				this.real * cn.getIm() + this.imaginary * cn.getRe());
+		return new ComplexNumber(
+				this.real * cn.getIm() + this.imaginary * cn.getRe(),
+				this.real * cn.getRe() - this.imaginary * cn.getIm());
 		
 	}
 
