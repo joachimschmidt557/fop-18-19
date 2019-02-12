@@ -1,0 +1,158 @@
+----------------------------------------------
+
+searchMoveToFrontTest :
+
+list vor dem Aufruf search(isOne) :
+
+5,	2,	1,	4,	3
+
+list nach dem Aufruf search(isOne) :
+
+1,	5,	2,	4,	3
+
+list vor dem Aufruf search(isTwo) :
+
+1,	5,	2,	4,	3
+
+list nach dem Aufruf search(isTwo) :
+
+2,	1,	5,	4,	3
+
+list vor dem Aufruf search(isTwo) :
+
+2,	1,	5,	4,	3
+
+list nach dem Aufruf search(isTwo) :
+
+2,	1,	5,	4,	3
+
+list vor dem Aufruf search(isThree) :
+
+2,	1,	5,	4,	3
+
+list nach dem Aufruf search(isThree) :
+
+3,	2,	1,	5,	4
+
+----------------------------------------------
+
+----------------------------------------------
+
+searchCountTest :
+
+list vor dem Aufruf search(isTwo) :
+
+5,	2,	1,	4,	3
+0,	0,	0,	0,	0
+
+
+list nach dem Aufruf search(isTwo) :
+
+2,	5,	1,	4,	3
+1,	0,	0,	0,	0
+
+
+list nach dem Aufruf search(isThree) :
+
+2,	3,	5,	1,	4
+1,	1,	0,	0,	0
+
+
+list nach dem Aufruf search(isOne) :
+
+2,	3,	1,	5,	4
+1,	1,	1,	0,	0
+
+
+list nach dem Aufruf search(isOne) :
+
+1,	2,	3,	5,	4
+2,	1,	1,	0,	0
+
+list nach dem Aufruf search(isOne) :
+
+1,	2,	3,	5,	4
+3,	1,	1,	0,	0
+
+
+list nach dem Aufruf search(isTwo) :
+
+1,	2,	3,	5,	4
+3,	2,	1,	0,	0
+
+
+list nach dem Aufruf search(isTwo) :
+
+1,	2,	3,	5,	4
+3,	3,	1,	0,	0
+
+
+list nach dem Aufruf search(isFour) :
+
+1,	2,	3,	4,	5
+3,	3,	1,	1,	0
+
+
+list nach dem Aufruf search(isFour) :
+
+1,	2,	4,	3,	5
+3,	3,	2,	1,	0
+
+
+list nach dem Aufruf search(isFour) :
+
+1,	2,	4,	3,	5
+3,	3,	3,	1,	0
+
+
+list nach dem Aufruf search(isFour) :
+
+4,	1,	2,	3,	5
+4,	3,	3,	1,	0
+
+list nach dem Aufruf search(isFour) :
+
+4,	1,	2,	3,	5
+5,	3,	3,	1,	0
+
+
+----------------------------------------------
+
+searchTransposeTest :
+
+list vor dem Aufruf search(isOne) :
+
+5,	2,	1,	4,	3
+
+list nach dem Aufruf search(isOne) :
+
+5,	1,	2,	4,	3
+
+list vor dem Aufruf search(isTwo) :
+
+5,	1,	2,	4,	3
+
+list nach dem Aufruf search(isTwo) :
+
+5,	2,	1,	4,	3
+
+list vor dem Aufruf search(isThree) :
+
+5,	2,	1,	4,	3
+
+----------------------------------------------
+list nach dem Aufruf search(isThree) :
+
+5,	2,	1,	3,	4
+
+list vor dem Aufruf search(isFive) :
+
+5,	2,	1,	3,	4
+
+----------------------------------------------
+list nach dem Aufruf search(isFive) :
+
+5,	2,	1,	3,	4
+
+----------------------------------------------
+
