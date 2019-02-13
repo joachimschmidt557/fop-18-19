@@ -58,7 +58,7 @@ public class ComplexNumber {
 	 */
 	public double abs() {
 		
-		return Math.sqrt(this.imaginary + this.real);
+		return Math.sqrt(this.imaginary * this.imaginary + this.real * this.real);
 		
 	}
 
