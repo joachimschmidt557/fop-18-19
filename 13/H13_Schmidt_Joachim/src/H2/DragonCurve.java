@@ -2,7 +2,11 @@ package H2;
 
 public class DragonCurve {
 
-	// TODO H2.1
+	/**
+	 * Returns the dragon curve sequence for this n
+	 * @param n The number of recursions
+	 * @return The sequence
+	 */
 	public String getSequence(int n) {
 		
 		if (n == 0)
@@ -15,6 +19,11 @@ public class DragonCurve {
 		
 	}
 	
+	/**
+	 * Replaces the middle character with a L
+	 * @param str The string
+	 * @return The new string
+	 */
 	private String replaceWithL(String str) {
 		
 		char[] explodedStr = str.toCharArray();

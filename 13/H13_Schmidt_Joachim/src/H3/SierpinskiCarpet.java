@@ -21,7 +21,10 @@ public class SierpinskiCarpet extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	// TODO H3
+	/**
+	 * Paints the sierpinsky carpet
+	 * @param g The Graphics onto which the carpet will be drawn
+	 */
 	@Override
 	public void paint(Graphics g) {
 		
@@ -29,6 +32,15 @@ public class SierpinskiCarpet extends JFrame {
 		
 	}
 	
+	/**
+	 * Recursively paints the sierpinkski carpet on a "canvas"
+	 * @param g The Graphics "canvas"
+	 * @param n The recursion depth
+	 * @param minX The upper left corner
+	 * @param maxX The upper right corner
+	 * @param minY The lower left corner
+	 * @param maxY The lower right corner
+	 */
 	private void recursivePaint(Graphics g, int n, int minX, int maxX, int minY, int maxY) {
 		
 		int width = maxX - minX; int height = maxY - minY;

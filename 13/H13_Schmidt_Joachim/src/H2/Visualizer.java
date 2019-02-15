@@ -25,7 +25,10 @@ public class Visualizer extends JFrame {
 		len = 400 / Math.pow(2, n / 2.);
 	}
 
-	// TODO H2.2
+	/**
+	 * Paints the dragon curve
+	 * @param The Graphics onto which the dragon curve will be drawn
+	 */
 	@Override
 	public void paint(Graphics g) {
 
@@ -35,6 +38,14 @@ public class Visualizer extends JFrame {
 		double currentY = startY;
 		double currentAngle = startingAngle;
 
+		g.drawLine((int)Math.round(currentX),
+				(int)Math.round(currentY),
+				(int)Math.round(calculateNewX(currentX, currentAngle, len)),
+				(int)Math.round(calculateNewY(currentY, currentAngle, len)));
+		
+		currentX = Math.round(calculateNewX(currentX, currentAngle, len));
+		currentY = Math.round(calculateNewY(currentY, currentAngle, len));
+		
 		for (char instruction : turns.toCharArray()) {
 
 			currentAngle = rotateAngle(currentAngle, instruction);
@@ -51,18 +62,38 @@ public class Visualizer extends JFrame {
 
 	}
 
+	/**
+	 * Calculates the new x point
+	 * @param x The current x point
+	 * @param angle The direction we need to go
+	 * @param len How far we are going
+	 * @return The new x point
+	 */
 	private double calculateNewX(double x, double angle, double len) {
 
 		return x + (len * Math.cos(angle));
 		
 	}
 
-	private double calculateNewY(double x, double angle, double len) {
+	/**
+	 * Calculates the new Y point
+	 * @param y The current Y point
+	 * @param angle The direction we need to go
+	 * @param len How far we are going
+	 * @return The new y point
+	 */
+	private double calculateNewY(double y, double angle, double len) {
 
-		return x + (len * Math.sin(angle));
+		return y + (len * Math.sin(angle));
 		
 	}
 
+	/**
+	 * Rotates this angle
+	 * @param angle The current angle
+	 * @param instruction Rotate R(ight) or L(eft)?
+	 * @return The new angle
+	 */
 	private double rotateAngle(double angle, char instruction) {
 
 		if (instruction == 'L')

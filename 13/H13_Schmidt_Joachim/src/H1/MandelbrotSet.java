@@ -9,7 +9,6 @@ public class MandelbrotSet extends Set {
 		this.name = "Mandelbrot";
 	}
 
-	// TODO H1.2
 	@Override
 	BufferedImage generate(int width, int height, int maxIter, int zoom, int rMax) {
 
@@ -25,12 +24,34 @@ public class MandelbrotSet extends Set {
 
 	}
 
+	/**
+	 * [Shared between Mandelbrot and Julia]
+	 * 
+	 * Turns a pixel into a complex number
+	 * @param x The x coordinate
+	 * @param y The y coordinate
+	 * @param height The height of the image
+	 * @param width The width of the image
+	 * @param zoomFactor The zoom factor
+	 * @return A complex number
+	 */
 	public static ComplexNumber getComplexNumberForPixel(int x, int y, int height, int width, int zoomFactor) {
 
 		return new ComplexNumber((y - height / 2.0) / zoomFactor, (x - width / 2.0) / zoomFactor);
 
 	}
 
+	/**
+	 * Generates the color for one pixel
+	 * @param x The x coordinate
+	 * @param y The y coordinate
+	 * @param maxIter The maximum number of iterations
+	 * @param rMax The maximum radius
+	 * @param height The height of the image
+	 * @param width The width of the image
+	 * @param zoomFactor The zoom factor
+	 * @return The color for this pixel
+	 */
 	Color generatePixel(int x, int y, float maxIter, int rMax, int height, int width, int zoomFactor) {
 
 		ComplexNumber z = new ComplexNumber(0, 0);
@@ -49,6 +70,12 @@ public class MandelbrotSet extends Set {
 
 	}
 
+	/**
+	 * Maps i and nMax to one color value
+	 * @param i The number of iterations
+	 * @param nMax The maximum number of iterations
+	 * @return The color
+	 */
 	public Color colorMap(float i, float nMax) {
 
 		//float h = ((float)(i / 100.0)) > 1.0 ? (float)1 : ((float)(i / 100.0));

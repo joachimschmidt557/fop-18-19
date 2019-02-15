@@ -8,7 +8,6 @@ public class JuliaSet extends Set {
 		this.name = "Julia";
 	}
 
-	// TODO H1.3
 	@Override
 	public BufferedImage generate(int width, int height, int maxIter, int zoom, int rMax) {
 
@@ -23,6 +22,17 @@ public class JuliaSet extends Set {
 		return I;
 	}
 	
+	/**
+	 * Generates the color for one pixel
+	 * @param x The x coordinate
+	 * @param y The y coordinate
+	 * @param maxIter The maximum number of iterations
+	 * @param rMax The maximum radius
+	 * @param height The height of the image
+	 * @param width The width of the image
+	 * @param zoomFactor The zoom factor
+	 * @return The color for this pixel
+	 */
 	Color generatePixel(int x, int y, int maxIter, int rMax, int height, int width, int zoomFactor) {
 		
 		ComplexNumber z = chooseStartValue();
@@ -45,12 +55,22 @@ public class JuliaSet extends Set {
 		
 	}
 	
+	/**
+	 * Selects a start value
+	 * @return In this case: -0.8+0.156i
+	 */
 	ComplexNumber chooseStartValue() {
 		
 		return new ComplexNumber(0.156, -0.8);
 		
 	}
 	
+	/**
+	 * Maps i and nMax to one color value
+	 * @param i The number of iterations
+	 * @param nMax The maximum number of iterations
+	 * @return The color
+	 */
 	public Color colorMap(int i, int nMax) {
 
 		float h = ((float)(i % 256/ 255.0)) > 1.0 ? (float)1 : ((float)(i % 256/ 255.0));
