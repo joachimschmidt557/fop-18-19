@@ -1,0 +1,2 @@
+alles:
+	qpdf --pages
