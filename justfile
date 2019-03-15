@@ -1,2 +1,2 @@
 alles:
-	qpdf --pages
+	qpdf --empty --pages */Blatt*.pdf -- AlleFOPHUe.pdf
